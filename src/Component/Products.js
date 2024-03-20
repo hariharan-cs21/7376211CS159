@@ -8,12 +8,11 @@ const Products = ({ loginToken, expires_in, token_type }) => {
         try {
             const response = await axios.get(`${api}/products/companies/AMZ/categories/Laptop/products?top=10&minPrice=1&maxPrice=10000`, {
                 headers: {
-                    token_type: token_type,
-                    Authorization: loginToken,
-                    expires_in: expires_in
+                    Authorization: token_type + loginToken,
                 }
             })
             console.log(response.data);
+            setItems(response.data)
 
         }
         catch (error) {
