@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import api from "./Constants"
 import axios from 'axios'
 
-const Login = ({ setLoginToken, settoken, setexpiry }) => {
+const Login = ({ setLoginToken, settoken }) => {
     const [email, setEmail] = useState()
     const [rollNO, setRollNo] = useState()
     const [owner, setOwner] = useState()
@@ -24,13 +24,11 @@ const Login = ({ setLoginToken, settoken, setexpiry }) => {
                 clientSecret: clientSecret
             })
             setLoginToken(response.data.access_token)
-            setexpiry(response.data.expires_in)
             settoken(response.data.token_type)
             alert("Login Success")
         } catch (error) {
             console.log(error);
         }
-
     }
     return (
         <div>
@@ -81,12 +79,9 @@ const Login = ({ setLoginToken, settoken, setexpiry }) => {
                     <button onClick={signIn}>Login</button>
                     <div>
 
-                        <div>
-                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }
