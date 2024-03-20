@@ -1,28 +1,31 @@
 import React, { useState } from 'react'
 import api from "./Constants"
 import axios from 'axios'
-const Register = () => {
-    const [accesCode, setaccessCode] = useState()
+
+const Login = ({ setLoginToken }) => {
     const [email, setEmail] = useState()
     const [rollNO, setRollNo] = useState()
-
     const [owner, setOwner] = useState()
+    const [clientId, setcliendId] = useState()
+    const [clientSecret, setClientSecret] = useState()
     const [company, setCOmpany] = useState()
-    const registerCompany = async () => {
-        if (!company || !owner || !rollNO || !accesCode) {
+    const signIn = async () => {
+        if (!company || !owner || !rollNO || !owner || !clientId || !clientSecret) {
             alert("Fill all details")
             return
         }
         try {
-            const response = await axios.post(`${api}/products/register`, {
+            const response = await axios.post(`${api}/products/auth`, {
                 companyName: company,
                 ownerName: owner,
                 rollNo: rollNO,
                 ownerEmail: email,
-                accessCode: accesCode
+                clientId: clientId,
+                clientSecret: clientSecret
             })
-            console.log(response.data);
-            alert("Company Profile created")
+            console.log(response.data.access_token);
+            setLoginToken(response.data.access_token)
+            alert("Login Success")
         } catch (error) {
             console.log(error);
         }
@@ -52,20 +55,29 @@ const Register = () => {
                         placeholder='Enter rollNO'
                         required
                     />
-                    <input
-                        className="py-3 mb-1 px-4 w-full border-b-2 border-gray-300 focus:outline-none focus:border-purple-500 rounded-md shadow-sm"
-                        value={accesCode}
-                        onChange={(e) => setaccessCode(e.target.value)}
-                        placeholder='Enter accesscode'
-                        required
-                    />
+
                     <input
                         placeholder='Enter Email'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         required
                         className="py-3 px-4 mb-1 w-full border-b-2 border-gray-300 focus:outline-none focus:border-purple-500 rounded-md shadow-sm" />
-                    <button onClick={registerCompany}>Register</button>
+
+                    <input
+                        className="py-3 mb-1 px-4 w-full border-b-2 border-gray-300 focus:outline-none focus:border-purple-500 rounded-md shadow-sm"
+                        value={clientId}
+                        onChange={(e) => setcliendId(e.target.value)}
+                        placeholder='Enter cliend ID'
+                        required
+                    />
+                    <input
+                        className="py-3 mb-1 px-4 w-full border-b-2 border-gray-300 focus:outline-none focus:border-purple-500 rounded-md shadow-sm"
+                        value={clientSecret}
+                        onChange={(e) => setClientSecret(e.target.value)}
+                        placeholder='Enter Secret ID'
+                        required
+                    />
+                    <button onClick={signIn}>Login</button>
                     <div>
 
                         <div>
@@ -78,4 +90,4 @@ const Register = () => {
     )
 }
 
-export default Register
+export default Login

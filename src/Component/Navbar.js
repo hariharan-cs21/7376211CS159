@@ -7,7 +7,9 @@ export const Navbar = ({ children }) => {
             <div className='flex justify-around'>
                 <Link to="/" >Home</Link>
                 <Link to="/register" >Register</Link>
-                <Link to="/products" >Products</Link>
+                <Link to="/login" >Login</Link>
+
+                <Link to="/product" >Products</Link>
 
             </div>
             {children}
