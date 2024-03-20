@@ -9,13 +9,15 @@ import { useState } from "react";
 
 function App() {
   const [loginToken, setLoginToken] = useState()
+  const [token_type, settoken] = useState()
+  const [expires_in, setexpiry] = useState()
   return (
     <Routes>
       <Route path="/" element={<Home />}></Route>
-      <Route path="/product" element={<Product loginToken={loginToken} />}></Route>
+      <Route path="/product" element={<Product loginToken={loginToken} token_type={token_type} expires_in={expires_in} />}></Route>
       <Route path="/register" element={<Register />}></Route>
       <Route path="/desc" element={<ProductDesc />}></Route>
-      <Route path="/login" element={<Login setLoginToken={setLoginToken} />}></Route>
+      <Route path="/login" element={<Login setLoginToken={setLoginToken} setexpiry={setexpiry} settoken={settoken} />}></Route>
 
     </Routes>
   )
